@@ -5,7 +5,7 @@ import { publishedAt } from '../publishedAt';
 const StyledVideo = styled.li`
   transition: all 250ms ease-in;
   cursor: pointer;
-
+  
   &:hover {
     transform: scale(1.05);
   }

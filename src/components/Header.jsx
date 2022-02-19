@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
 import userIcon from '../images/userIcon.jpg';
+import { MdMenu } from 'react-icons/md';
 import { MdSearch } from 'react-icons/md';
 import { MdMic } from 'react-icons/md';
 import { MdVideoCall } from 'react-icons/md';
@@ -9,7 +10,7 @@ import { MdApps } from 'react-icons/md';
 import { MdNotifications } from 'react-icons/md';
 
 const StyledHeader = styled.header`
-  width: calc(100vw - 70px);
+  width: 100vw;
   height: 56px;
   background-color: var(--back-color);
   color: var(--white-color);
@@ -17,7 +18,6 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--light-black-color);
-  margin-left: 70px;
   position: fixed;
   top: 0;
   z-index: 90;
@@ -25,6 +25,7 @@ const StyledHeader = styled.header`
 
 const Title = styled.a`
   display: flex;
+  justify-content: center;
   justify-content: center;
   align-items: center;
   text-decoration: none;
@@ -40,6 +41,12 @@ const Title = styled.a`
     font-size: 23px;
     color: var(--white-color);
   }
+`;
+
+const HamburgerMenu = styled.div`
+  color: var(--white-color);
+  padding: 0 25px;
+  cursor: pointer;
 `;
 
 const SearchBar = styled.div`
@@ -95,7 +102,7 @@ const Icons = styled.div`
   }
 `;
 
-const Header = ({ searchVideos }) => {
+const Header = ({ setShow, searchVideos }) => {
   const inputRef = useRef(null);
 
   const handleInput = (e) => {
@@ -115,6 +122,9 @@ const Header = ({ searchVideos }) => {
   return (
     <StyledHeader>
       <Title href="#">
+        <HamburgerMenu>
+          <MdMenu size={24} onClick={() => setShow(true)} />
+        </HamburgerMenu>
         <img src={logo} alt="youtube logo" />
         <h1>YouTube</h1>
       </Title>

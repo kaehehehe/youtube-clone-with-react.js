@@ -68,8 +68,8 @@ const App = () => {
 
   return (
     <>
-      <Header searchVideos={searchVideos} />
-      <SideNavbar setShow={setShow} selectedVideo={selectedVideo} />
+      <Header setShow={setShow} searchVideos={searchVideos} />
+      <SideNavbar selectedVideo={selectedVideo} />
       <DetailedSideNavbar show={show} setShow={setShow} />
       <Main>
         {selectedVideo ? (

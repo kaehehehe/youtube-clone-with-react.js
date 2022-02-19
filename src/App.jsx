@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
+import DetailedSideNavbar from './components/DetailedSideNavbar';
 import Header from './components/Header';
 import SideNavbar from './components/SideNavbar';
 import VideoList from './components/VideoList';
@@ -14,6 +15,7 @@ const Main = styled.main`
 
 const App = () => {
   const [videos, setVideos] = useState([]);
+  const [show, setShow] = useState(false);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
@@ -32,7 +34,8 @@ const App = () => {
   return (
     <>
       <Header />
-      <SideNavbar />
+      <SideNavbar setShow={setShow} />
+      <DetailedSideNavbar show={show} setShow={setShow} />
       <Main>
         <VideoList videos={videos} />
       </Main>

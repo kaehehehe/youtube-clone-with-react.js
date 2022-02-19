@@ -68,7 +68,7 @@ const Description = styled.p`
   color: gray;
 `;
 
-const SearchedVideo = ({ video }) => {
+const SearchedVideo = ({ video, handleSelectedVideo }) => {
   const [channel, setChannel] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
@@ -85,7 +85,7 @@ const SearchedVideo = ({ video }) => {
   }, []);
 
   return (
-    <StyledVideo>
+    <StyledVideo onClick={() => handleSelectedVideo(video)}>
       <Thumbnail>
         <img src={video.snippet.thumbnails.medium.url} alt="video thumbnail" />
       </Thumbnail>

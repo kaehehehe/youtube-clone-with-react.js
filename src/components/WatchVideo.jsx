@@ -7,6 +7,7 @@ import { MdShare } from 'react-icons/md';
 import { MdFileDownload } from 'react-icons/md';
 import { MdBookmarkAdd } from 'react-icons/md';
 import { MdMoreHoriz } from 'react-icons/md';
+import { convertDate } from '../publishedAt';
 
 const Video = styled.iframe`
   margin-top: 70px;
@@ -144,7 +145,7 @@ const WatchVideo = ({ video }) => {
         <Metadata>
           <span>100 views</span>
           <VscDebugStackframeDot color="gray" />
-          <span>{video.snippet.publishedAt}</span>
+          <span>{convertDate(video.snippet.publishedAt)}</span>
         </Metadata>
         <Buttons>
           <Button>

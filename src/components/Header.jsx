@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import logo from '../images/logo.png';
 import userIcon from '../images/userIcon.jpg';
@@ -95,7 +95,23 @@ const Icons = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = ({ searchVideos }) => {
+  const inputRef = useRef(null);
+
+  const handleInput = (e) => {
+    const value = inputRef.current.value;
+    if (e.key === 'Enter') {
+      if (value === '') return;
+      searchVideos(value);
+    }
+  };
+
+  const handleClick = () => {
+    const value = inputRef.current.value;
+    if (value === '') return;
+    searchVideos(value);
+  };
+
   return (
     <StyledHeader>
       <Title href="#">
@@ -103,8 +119,13 @@ const Header = () => {
         <h1>YouTube</h1>
       </Title>
       <SearchBar>
-        <input type="text" placeholder="Search" />
-        <button type="button">
+        <input
+          type="search"
+          placeholder="Search"
+          ref={inputRef}
+          onKeyUp={handleInput}
+        />
+        <button type="submit" onClick={handleClick}>
           <MdSearch className="icon" />
         </button>
         <StyledIcon>

@@ -34,7 +34,7 @@ const App = () => {
 
   useEffect(() => {
     fetch(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=50&regionCode=KR&key=${API_KEY}`,
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=KR&key=${API_KEY}`,
       getRequestOptions
     )
       .then((res) => res.json())

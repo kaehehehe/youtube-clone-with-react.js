@@ -8,6 +8,7 @@ import { MdFileDownload } from 'react-icons/md';
 import { MdBookmarkAdd } from 'react-icons/md';
 import { MdMoreHoriz } from 'react-icons/md';
 import { convertDate } from '../publishedAt';
+import { convertNumber } from '../logic/convertNumber';
 
 const Video = styled.iframe`
   margin-top: 70px;
@@ -118,17 +119,19 @@ const VideoDescription = styled.p`
 
 const WatchVideo = ({ video }) => {
   const [channel, setChannel] = useState(null);
+  const [subscriberCount, setSubscriberCount] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
   useEffect(() => {
     fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${video.snippet.channelId}&key=${API_KEY}`,
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
       getRequestOptions
     )
       .then((res) => res.json())
       .then((res) => {
         setChannel(res.items[0].snippet.thumbnails.default.url);
+        setSubscriberCount(res.items[0].statistics.subscriberCount);
       });
   }, []);
   return (
@@ -143,14 +146,16 @@ const WatchVideo = ({ video }) => {
       <VideoTitle>{video.snippet.title}</VideoTitle>
       <Actions>
         <Metadata>
-          <span>100 views</span>
+          <span>{`${Number(
+            video.statistics.viewCount
+          ).toLocaleString()} views`}</span>
           <VscDebugStackframeDot color="gray" />
           <span>{convertDate(video.snippet.publishedAt)}</span>
         </Metadata>
         <Buttons>
           <Button>
             <MdThumbUpAlt size={24} />
-            <ButtonName>3.8K</ButtonName>
+            <ButtonName>{convertNumber(video.statistics.likeCount)}</ButtonName>
           </Button>
           <Button>
             <MdThumbDownAlt size={24} />
@@ -179,7 +184,9 @@ const WatchVideo = ({ video }) => {
             <ChannelIcon src={channel} alt="channel thumbnail" />
             <ChannelTitleWrapper>
               <ChannelTitle>{video.snippet.channelTitle}</ChannelTitle>
-              <Subscribers>124K subscribers</Subscribers>
+              <Subscribers>{`${convertNumber(
+                subscriberCount
+              )} subscribers`}</Subscribers>
             </ChannelTitleWrapper>
           </ChannelIconWrapper>
           <SubBtn>subscribe</SubBtn>

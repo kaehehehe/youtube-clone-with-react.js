@@ -20,15 +20,15 @@ const Navbar = styled.nav`
   position: fixed;
   top: 0;
 
-  .hamburger-menu {
-    margin-bottom: 15px;
-    cursor: pointer;
-  }
-
   .icon {
     font-size: 24px;
     margin-bottom: 5px;
   }
+`;
+
+const HamburgerMenu = styled.div`
+  margin-bottom: 15px;
+  cursor: pointer;
 `;
 
 const Menu = styled.div`
@@ -46,27 +46,30 @@ const Menu = styled.div`
 `;
 
 const MenuName = styled.span`
+  margin-top: 5px;
   font-size: 10px;
 `;
 
-const SideNavbar = () => {
+const SideNavbar = ({ setShow }) => {
   return (
     <Navbar>
-      <MdMenu className="hamburger-menu icon" />
+      <HamburgerMenu>
+      <MdMenu size={24} onClick={() => setShow(true)} />
+      </HamburgerMenu>
       <Menu>
-        <MdHome className="icon" />
+        <MdHome size={24} />
         <MenuName>Home</MenuName>
       </Menu>
       <Menu>
-        <MdExplore className="icon" />
+        <MdExplore size={24} />
         <MenuName>Explore</MenuName>
       </Menu>
       <Menu>
-        <MdSubscriptions className="icon" />
+        <MdSubscriptions size={24} />
         <MenuName>Subscriptions</MenuName>
       </Menu>
       <Menu>
-        <MdVideoLibrary className="icon" />
+        <MdVideoLibrary size={24} />
         <MenuName>Library</MenuName>
       </Menu>
     </Navbar>

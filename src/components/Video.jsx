@@ -47,7 +47,7 @@ const ChannelThumbnail = styled.img`
   margin-right: 13px;
 `;
 
-const Video = ({ video }) => {
+const Video = ({ video, handleSelectedVideo }) => {
   const [channel, setChannel] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
@@ -64,7 +64,7 @@ const Video = ({ video }) => {
   }, []);
 
   return (
-    <StyledVideo>
+    <StyledVideo onClick={() => handleSelectedVideo(video)}>
       <Thumbnail
         src={video.snippet.thumbnails.medium.url}
         alt="video thumbnail"

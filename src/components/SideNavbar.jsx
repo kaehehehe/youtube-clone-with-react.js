@@ -7,7 +7,7 @@ import { MdSubscriptions } from 'react-icons/md';
 import { MdVideoLibrary } from 'react-icons/md';
 
 const Navbar = styled.nav`
-  display: flex;
+  display: ${({ selectedVideo }) => (selectedVideo ? 'none' : 'flex')};
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -50,11 +50,11 @@ const MenuName = styled.span`
   font-size: 10px;
 `;
 
-const SideNavbar = ({ setShow }) => {
+const SideNavbar = ({ setShow, selectedVideo }) => {
   return (
-    <Navbar>
+    <Navbar selectedVideo={selectedVideo}>
       <HamburgerMenu>
-      <MdMenu size={24} onClick={() => setShow(true)} />
+        <MdMenu size={24} onClick={() => setShow(true)} />
       </HamburgerMenu>
       <Menu>
         <MdHome size={24} />

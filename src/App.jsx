@@ -5,6 +5,7 @@ import DetailedSideNavbar from './components/DetailedSideNavbar';
 import Header from './components/Header';
 import SideNavbar from './components/SideNavbar';
 import VideoList from './components/VideoList';
+import WatchVideo from './components/WatchVideo';
 
 const Main = styled.main`
   width: calc(100% - 70px);
@@ -13,10 +14,19 @@ const Main = styled.main`
   margin-left: 80px;
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+`;
+
 const App = () => {
   const [videos, setVideos] = useState([]);
   const [show, setShow] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
@@ -51,13 +61,28 @@ const App = () => {
       .catch((error) => console.error('error', error));
   };
 
+  const handleSelectedVideo = (video) => {
+    console.log('clicked');
+    setSelectedVideo(video);
+  };
+
   return (
     <>
       <Header searchVideos={searchVideos} />
-      <SideNavbar setShow={setShow} />
+      <SideNavbar setShow={setShow} selectedVideo={selectedVideo} />
       <DetailedSideNavbar show={show} setShow={setShow} />
       <Main>
-        <VideoList videos={videos} searched={searched} />
+        {selectedVideo ? (
+          <Container>
+            <WatchVideo selectedVideo={selectedVideo} />
+          </Container>
+        ) : (
+          <VideoList
+            videos={videos}
+            searched={searched}
+            handleSelectedVideo={handleSelectedVideo}
+          />
+        )}
       </Main>
     </>
   );

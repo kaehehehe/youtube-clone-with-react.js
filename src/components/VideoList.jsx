@@ -17,12 +17,18 @@ const StyledVideoList = styled.ul`
   gap: 20px;
 `;
 
-const VideoList = ({ videos, searched }) => {
+const VideoList = ({ videos, searched, handleSelectedVideo }) => {
   return (
     <StyledVideoList searched={searched}>
       {searched
         ? videos.map((video) => <SearchedVideo key={video.id} video={video} />)
-        : videos.map((video) => <Video key={video.id} video={video} />)}
+        : videos.map((video) => (
+            <Video
+              key={video.id}
+              video={video}
+              handleSelectedVideo={handleSelectedVideo}
+            />
+          ))}
     </StyledVideoList>
   );
 };

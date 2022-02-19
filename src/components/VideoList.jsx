@@ -21,8 +21,8 @@ const VideoList = ({ videos, searched, handleSelectedVideo }) => {
   return (
     <StyledVideoList searched={searched}>
       {searched
-        ? videos.map((video) => <SearchedVideo key={video.id} video={video} />)
-        : videos.map((video) => (
+        ? videos?.map((video) => <SearchedVideo key={video.id} video={video} />)
+        : videos?.map((video) => (
             <Video
               key={video.id}
               video={video}

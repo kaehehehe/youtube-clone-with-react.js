@@ -8,10 +8,12 @@ import VideoList from './components/VideoList';
 import WatchVideo from './components/WatchVideo';
 
 const Main = styled.main`
-  width: calc(100% - 70px);
+  width: ${({ selectedVideo }) =>
+    selectedVideo ? '100%' : 'calc(100% - 70px)'};
   background-color: var(--dark-black-color);
   color: var(--white-color);
-  margin-left: 80px;
+  margin-left: ${({ selectedVideo }) => (selectedVideo ? '0' : '80px')};
+  padding: ${({ selectedVideo }) => selectedVideo && '0 30px'};
 `;
 
 const Container = styled.div`
@@ -71,10 +73,10 @@ const App = () => {
       <Header setShow={setShow} searchVideos={searchVideos} />
       <SideNavbar selectedVideo={selectedVideo} />
       <DetailedSideNavbar show={show} setShow={setShow} />
-      <Main>
+      <Main selectedVideo={selectedVideo}>
         {selectedVideo ? (
           <Container>
-            <WatchVideo selectedVideo={selectedVideo} />
+            <WatchVideo video={selectedVideo} />
           </Container>
         ) : (
           <VideoList

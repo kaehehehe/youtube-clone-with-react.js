@@ -64,7 +64,6 @@ const App = () => {
   };
 
   const handleSelectedVideo = (video) => {
-    console.log('clicked');
     setSelectedVideo(video);
   };
 

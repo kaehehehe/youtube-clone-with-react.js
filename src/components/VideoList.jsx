@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import VideoItem from './Video';
+import Video from './Video';
 
 const StyledVideoList = styled.ul`
   background-color: var(--dark-black-color);
@@ -16,7 +16,9 @@ const StyledVideoList = styled.ul`
 const VideoList = ({ videos }) => {
   return (
     <StyledVideoList>
-      {videos.map(video => <VideoItem key={video.id} video={video} />)}
+      {videos.map((video) => (
+        <Video key={video.id} video={video} />
+      ))}
     </StyledVideoList>
   );
 };

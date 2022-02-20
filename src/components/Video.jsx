@@ -62,10 +62,8 @@ const MetadataWrapper = styled.div`
 
 const Video = ({ video, handleSelectedVideo }) => {
   const [channel, setChannel] = useState(null);
-  const [viewCount, setViewCount] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
-
   useEffect(() => {
     fetch(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
@@ -74,7 +72,6 @@ const Video = ({ video, handleSelectedVideo }) => {
       .then((res) => res.json())
       .then((res) => {
         setChannel(res.items[0].snippet.thumbnails.default.url);
-        setViewCount(res.items[0].statistics.viewCount);
       });
   }, []);
 
@@ -90,7 +87,7 @@ const Video = ({ video, handleSelectedVideo }) => {
           <p className="title">{video.snippet.title}</p>
           <p className="channel-name">{video.snippet.channelTitle}</p>
           <MetadataWrapper>
-            <span>{`${convertNumber(viewCount)} views`}</span>
+            <span>{`${convertNumber(video.statistics.viewCount)} views`}</span>
             <VscDebugStackframeDot color="gray" />
             <span className="published-at">
               {publishedAt(video.snippet.publishedAt)} ago

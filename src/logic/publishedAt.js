@@ -1,4 +1,4 @@
-export const publishedAt = (data) => {
+export const convertDataIntoAgo = (data) => {
   const published = data.slice(0, 10).split('-');
   const [publishedYear, publishedMonth, publishedDay] = published;
   const today = new Date();

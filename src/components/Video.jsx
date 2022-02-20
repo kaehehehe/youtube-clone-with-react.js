@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { publishedAt } from '../logic/publishedAt';
+import { convertDataIntoAgo } from '../logic/publishedAt';
 import { convertNumber } from '../logic/convertNumber';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 
@@ -90,7 +90,7 @@ const Video = ({ video, handleSelectedVideo }) => {
             <span>{`${convertNumber(video.statistics.viewCount)} views`}</span>
             <VscDebugStackframeDot color="gray" />
             <span className="published-at">
-              {publishedAt(video.snippet.publishedAt)} ago
+              {convertDataIntoAgo(video.snippet.publishedAt)} ago
             </span>
           </MetadataWrapper>
         </VideoMetadata>

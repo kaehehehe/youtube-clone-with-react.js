@@ -10,6 +10,7 @@ import { MdMoreHoriz } from 'react-icons/md';
 import { convertDate } from '../logic/publishedAt';
 import { convertNumber } from '../logic/convertNumber';
 import { GlobalContext } from '../App';
+import Comments from './CommentList';
 
 const Video = styled.iframe`
   margin-top: 70px;
@@ -212,6 +213,7 @@ const WatchVideo = ({ video }) => {
         </VideoInfoWrapper>
         <VideoDescription>{video.snippet.description}</VideoDescription>
       </VideoInfo>
+      <Comments video={video} />
     </>
   );
 };

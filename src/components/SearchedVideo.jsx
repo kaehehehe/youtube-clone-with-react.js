@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { publishedAt } from '../logic/publishedAt';
+import { convertDataIntoAgo } from '../logic/publishedAt';
 
 const StyledVideo = styled.li`
   display: flex;
@@ -91,7 +91,9 @@ const SearchedVideo = ({ video, handleSelectedVideo }) => {
       </Thumbnail>
       <VideoMetadata>
         <Title>{video.snippet.title}</Title>
-        <PublishedAt>{publishedAt(video.snippet.publishedAt)} ago</PublishedAt>
+        <PublishedAt>
+          {convertDataIntoAgo(video.snippet.publishedAt)} ago
+        </PublishedAt>
         <Wrapper>
           <ChannelImg src={channel} alt="channel thumbnail" />
           <Channel>{video.snippet.channelTitle}</Channel>

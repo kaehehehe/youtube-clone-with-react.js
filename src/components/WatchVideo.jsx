@@ -67,6 +67,7 @@ const ButtonName = styled.span`
 
 const VideoInfo = styled.div`
   margin-top: 20px;
+  width: 100%;
 `;
 
 const VideoInfoWrapper = styled.div`

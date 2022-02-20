@@ -12,6 +12,10 @@ import { convertNumber } from '../logic/convertNumber';
 import { GlobalContext } from '../App';
 import Comments from './CommentList';
 
+const Container = styled.div`
+  height: 100vh;
+`;
+
 const Video = styled.iframe`
   margin-top: 70px;
   width: 100%;
@@ -157,7 +161,7 @@ const WatchVideo = ({ video }) => {
   }, []);
 
   return (
-    <>
+    <Container>
       <Video
         type="text/html"
         src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
@@ -214,7 +218,7 @@ const WatchVideo = ({ video }) => {
         <VideoDescription>{video.snippet.description}</VideoDescription>
       </VideoInfo>
       <Comments video={video} />
-    </>
+    </Container>
   );
 };
 

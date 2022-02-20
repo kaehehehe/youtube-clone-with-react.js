@@ -15,6 +15,7 @@ const StyledVideoList = styled.ul`
   justify-content: ${({ searched }) => searched && 'center'};
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  padding-bottom: 30px;
 `;
 
 const VideoList = ({ videos, searched, handleSelectedVideo }) => {

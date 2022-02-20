@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { MdThumbUpAlt } from 'react-icons/md';
@@ -9,6 +9,7 @@ import { MdBookmarkAdd } from 'react-icons/md';
 import { MdMoreHoriz } from 'react-icons/md';
 import { convertDate } from '../logic/publishedAt';
 import { convertNumber } from '../logic/convertNumber';
+import { GlobalContext } from '../App';
 
 const Video = styled.iframe`
   margin-top: 70px;
@@ -119,6 +120,7 @@ const VideoDescription = styled.p`
 `;
 
 const WatchVideo = ({ video }) => {
+  const { searched } = useContext(GlobalContext);
   const [channel, setChannel] = useState(null);
   const [subscriberCount, setSubscriberCount] = useState(null);
   const [viewCount, setViewCount] = useState(null);
@@ -126,7 +128,17 @@ const WatchVideo = ({ video }) => {
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
+  const handleLikeCount = () => {
+    if (searched) {
+      setLikeCount('LIKE');
+    } else {
+      const data = convertNumber(video.statistics.likeCount);
+      setLikeCount(data);
+    }
+  };
+
   useEffect(() => {
+    handleLikeCount();
     fetch(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
       getRequestOptions
@@ -136,17 +148,9 @@ const WatchVideo = ({ video }) => {
         setChannel(res.items[0].snippet.thumbnails.default.url);
         setSubscriberCount(res.items[0].statistics.subscriberCount);
         setViewCount(res.items[0].statistics.viewCount);
-        setLikeCount(res.items[0].statistics.likeCount ?? 'LIKE');
+        // setLikeCount(res.items[0].statistics.likeCount ?? 'LIKE');
       });
   }, []);
-
-  const handleLikeCount = (data) => {
-    if (data === 'LIKE') {
-      return data;
-    } else {
-      return convertNumber(data);
-    }
-  };
 
   return (
     <>
@@ -167,7 +171,7 @@ const WatchVideo = ({ video }) => {
         <Buttons>
           <Button>
             <MdThumbUpAlt size={24} />
-            <ButtonName>{handleLikeCount(likeCount)}</ButtonName>
+            <ButtonName>{likeCount}</ButtonName>
           </Button>
           <Button>
             <MdThumbDownAlt size={24} />

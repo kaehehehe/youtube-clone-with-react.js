@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import DetailedSideNavbar from './components/DetailedSideNavbar';
@@ -6,6 +6,8 @@ import Header from './components/Header';
 import SideNavbar from './components/SideNavbar';
 import VideoList from './components/VideoList';
 import WatchVideo from './components/WatchVideo';
+
+export const GlobalContext = createContext(null);
 
 const Main = styled.main`
   width: ${({ selectedVideo }) =>
@@ -68,7 +70,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <GlobalContext.Provider value={{ searched }}>
       <Header setShow={setShow} searchVideos={searchVideos} />
       <SideNavbar selectedVideo={selectedVideo} />
       <DetailedSideNavbar show={show} setShow={setShow} />
@@ -85,7 +87,7 @@ const App = () => {
           />
         )}
       </Main>
-    </>
+    </GlobalContext.Provider>
   );
 };
 

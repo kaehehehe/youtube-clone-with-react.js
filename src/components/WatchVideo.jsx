@@ -41,6 +41,10 @@ const Metadata = styled.div`
     font-size: 14px;
     color: var(--gray-color);
   }
+
+  @media screen and (max-width: 793px) {
+    display: none;
+  }
 `;
 
 const Buttons = styled.ul`

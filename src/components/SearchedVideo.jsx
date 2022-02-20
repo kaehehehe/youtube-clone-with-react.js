@@ -42,7 +42,7 @@ const Title = styled.p`
 
 const PublishedAt = styled.p`
   font-size: 12px;
-  color: gray;
+  color: var(--gray-color);
   margin-bottom: 10px;
 `;
 
@@ -60,12 +60,12 @@ const ChannelImg = styled.img`
 
 const Channel = styled.p`
   font-size: 15px;
-  color: gray;
+  color: var(--gray-color);
   margin-bottom: 10px;
 `;
 
 const Description = styled.p`
-  color: gray;
+  color: var(--gray-color);
 `;
 
 const SearchedVideo = ({ video, handleSelectedVideo }) => {

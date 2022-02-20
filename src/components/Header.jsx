@@ -57,7 +57,7 @@ const SearchBar = styled.div`
   input {
     width: 100%;
     height: 40px;
-    background-color: #121212;
+    background-color: var(--input-black-color);
     color: var(--white-color);
     border: 1px solid var(--light-black-color);
     padding-left: 10px;

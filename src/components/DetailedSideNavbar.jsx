@@ -35,7 +35,7 @@ const Navbar = styled.nav`
   h5 {
     font-size: 14px;
     margin: 0 0 10px 20px;
-    color: darkgray;
+    color: var(--gray-color);
   }
 `;
 
@@ -122,7 +122,7 @@ const Footer = styled(Section)`
   padding: 0;
   font-size: 13px;
   font-weight: bold;
-  color: darkgray;
+  color: var(--gray-color);
 
   p {
     margin-left: 18px;
@@ -133,7 +133,7 @@ const Footer = styled(Section)`
 const Copyright = styled.p`
   font-size: 12px;
   font-weight: normal;
-  color: gray;
+  color: var(--dark-gray-color);
   padding-bottom: 70px;
 `;
 

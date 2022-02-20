@@ -28,7 +28,7 @@ const VideoMetadata = styled.div`
   .channel-name,
   .published-at {
     font-size: 12px;
-    color: gray;
+    color: var(--gray-color);
   }
 
   .channel-name {

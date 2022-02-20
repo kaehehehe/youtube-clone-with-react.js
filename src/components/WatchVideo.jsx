@@ -129,6 +129,7 @@ const WatchVideo = ({ video }) => {
   const [channel, setChannel] = useState(null);
   const [subscriberCount, setSubscriberCount] = useState(null);
   const [likeCount, setLikeCount] = useState(null);
+  const [viewCount, setviewCount] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
@@ -151,6 +152,7 @@ const WatchVideo = ({ video }) => {
       .then((res) => {
         setChannel(res.items[0].snippet.thumbnails.default.url);
         setSubscriberCount(res.items[0].statistics.subscriberCount);
+        setviewCount(res.items[0].statistics.viewCount);
       });
   }, []);
 
@@ -166,9 +168,7 @@ const WatchVideo = ({ video }) => {
       <VideoTitle>{video.snippet.title}</VideoTitle>
       <Actions>
         <Metadata>
-          <span>{`${Number(
-            video.statistics.viewCount
-          ).toLocaleString()} views`}</span>
+          <span>{`${Number(viewCount).toLocaleString()} views`}</span>
           <VscDebugStackframeDot color="gray" />
           <span>{convertDate(video.snippet.publishedAt)}</span>
         </Metadata>

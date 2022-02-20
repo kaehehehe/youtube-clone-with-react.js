@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { convertDataIntoAgo } from '../logic/publishedAt';
+import { convertDataIntoDuration } from '../logic/duration';
 import { convertNumber } from '../logic/convertNumber';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
+import { useWindowSize } from 'react-use';
 
 const StyledVideo = styled.li`
   transition: all 250ms ease-in;
@@ -13,8 +15,25 @@ const StyledVideo = styled.li`
   }
 `;
 
+const ThumbnailWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const Thumbnail = styled.img`
   width: 100%;
+  background-color: aliceblue;
+`;
+
+const Duration = styled.div`
+  font-size: 12px;
+  color: var(--white-color);
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 3px;
+  padding: 5px 8px;
+  position: absolute;
+  top: ${({ height }) => `${height - 25}px`};
+  right: 5px;
 `;
 
 const Wrapper = styled.div`
@@ -64,6 +83,15 @@ const Video = ({ video, handleSelectedVideo }) => {
   const [channel, setChannel] = useState(null);
   const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
   const getRequestOptions = { method: 'GET', redirect: 'follow' };
+  const heightRef = useRef(null);
+  const { width, height } = useWindowSize();
+  const [thumbnailHeight, setThumbnailHeight] = useState(null);
+
+  useEffect(() => {
+    const thumbnailHeight = heightRef.current.height;
+    setThumbnailHeight(thumbnailHeight);
+  }, [[width, height]]);
+
   useEffect(() => {
     fetch(
       `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
@@ -77,10 +105,16 @@ const Video = ({ video, handleSelectedVideo }) => {
 
   return (
     <StyledVideo onClick={() => handleSelectedVideo(video)}>
-      <Thumbnail
-        src={video.snippet.thumbnails.medium.url}
-        alt="video thumbnail"
-      />
+      <ThumbnailWrapper>
+        <Thumbnail
+          src={video.snippet.thumbnails.medium.url}
+          alt="video thumbnail"
+          ref={heightRef}
+        />
+        <Duration height={thumbnailHeight}>
+          {convertDataIntoDuration(video.contentDetails.duration)}
+        </Duration>
+      </ThumbnailWrapper>
       <Wrapper>
         <ChannelThumbnail src={channel} alt="channel thumbnail" />
         <VideoMetadata>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { publishedAt } from '../publishedAt';
+import { publishedAt } from '../logic/publishedAt';
 
 const StyledVideo = styled.li`
   transition: all 250ms ease-in;

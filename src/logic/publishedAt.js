@@ -1,5 +1,5 @@
 export const publishedAt = (data) => {
-  const published = data.split('T')[0].split('-');
+  const published = data.slice(0, 10).split('-');
   const [publishedYear, publishedMonth, publishedDay] = published;
   const today = new Date();
   if (today.getFullYear() !== Number(publishedYear)) {
@@ -22,7 +22,7 @@ export const publishedAt = (data) => {
 };
 
 export const convertDate = (data) => {
-  const published = data.split('T')[0].split('-');
+  const published = data.slice(0, 10).split('-');
   let [publishedYear, publishedMonth, publishedDay] = published;
 
   switch (publishedMonth) {

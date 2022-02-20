@@ -7,7 +7,7 @@ import { MdShare } from 'react-icons/md';
 import { MdFileDownload } from 'react-icons/md';
 import { MdBookmarkAdd } from 'react-icons/md';
 import { MdMoreHoriz } from 'react-icons/md';
-import { convertDate } from '../publishedAt';
+import { convertDate } from '../logic/publishedAt';
 import { convertNumber } from '../logic/convertNumber';
 
 const Video = styled.iframe`
@@ -146,16 +146,16 @@ const WatchVideo = ({ video }) => {
       <VideoTitle>{video.snippet.title}</VideoTitle>
       <Actions>
         <Metadata>
-          <span>{`${Number(
+          {/* <span>{`${Number(
             video.statistics.viewCount
-          ).toLocaleString()} views`}</span>
+          ).toLocaleString()} views`}</span> */}
           <VscDebugStackframeDot color="gray" />
           <span>{convertDate(video.snippet.publishedAt)}</span>
         </Metadata>
         <Buttons>
           <Button>
             <MdThumbUpAlt size={24} />
-            <ButtonName>{convertNumber(video.statistics.likeCount)}</ButtonName>
+            {/* <ButtonName>{convertNumber(video.statistics.likeCount)}</ButtonName> */}
           </Button>
           <Button>
             <MdThumbDownAlt size={24} />

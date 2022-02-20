@@ -67,13 +67,22 @@ const Comment = ({ comment }) => {
     likeCount,
   } = comment.snippet.topLevelComment.snippet;
 
+  const handlePublishedAt = (data) => {
+    const result = convertDataIntoAgo(data);
+    if(result === 'now') {
+      return 'now';
+    }else{
+      return `${result} ago`;
+    }
+  }
+
   return (
     <StyledComment>
       <UserProfileImg src={authorProfileImageUrl} alt="user profile image" />
       <Wrapper>
         <UsernameWrapper>
           <Username>{authorDisplayName}</Username>
-          <PublishedAt>{`${convertDataIntoAgo(publishedAt)} ago`}</PublishedAt>
+          <PublishedAt>{handlePublishedAt(publishedAt)}</PublishedAt>
         </UsernameWrapper>
         <Text>{textOriginal}</Text>
         <Buttons>

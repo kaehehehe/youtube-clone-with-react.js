@@ -14,7 +14,7 @@ const Comments = ({ video }) => {
 
   useEffect(() => {
     fetch(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${video.id}&maxResults=5&key=${API_KEY}`,
+      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${video.id}&maxResults=10&key=${API_KEY}`,
       getRequestOptions
     )
       .then((res) => res.json())

@@ -17,7 +17,7 @@ const Comments = ({ video }) => {
       .getCommentsData(video)
       .then((data) => setComments(data))
       .catch((error) => console.error('error', error));
-  }, []);
+  }, [video, youtube]);
 
   return (
     <StyledCommentList>

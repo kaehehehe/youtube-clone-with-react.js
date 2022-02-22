@@ -84,7 +84,7 @@ const Video = ({ video, handleSelectedVideo }) => {
   const { youtube } = useContext(GlobalContext);
   const [channel, setChannel] = useState(null);
   const heightRef = useRef(null);
-  const { width, height } = useWindowSize();
+  const { width, height } = useWindowSize(null);
   const [thumbnailHeight, setThumbnailHeight] = useState(null);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const Video = ({ video, handleSelectedVideo }) => {
       .getChannelsData(video)
       .then((data) => setChannel(data[0].snippet.thumbnails.default.url))
       .catch((error) => console.error('error', error));
-  }, []);
+  }, [video, youtube]);
 
   return (
     <StyledVideo onClick={() => handleSelectedVideo(video)}>

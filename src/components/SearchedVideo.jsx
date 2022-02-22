@@ -78,7 +78,7 @@ const SearchedVideo = ({ video, handleSelectedVideo }) => {
       .getChannelsData(video)
       .then((data) => setChannel(data[0].snippet.thumbnails.default.url))
       .catch((error) => console.error('error', error));
-  }, []);
+  }, [video, youtube]);
 
   return (
     <StyledVideo onClick={() => handleSelectedVideo(video)}>

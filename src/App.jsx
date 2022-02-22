@@ -37,7 +37,7 @@ const App = ({ youtube }) => {
       .getMostPopularVideos()
       .then((data) => setVideos(data))
       .catch((error) => console.error('error', error));
-  }, []);
+  }, [youtube]);
 
   const searchVideos = (inputValue) => {
     youtube

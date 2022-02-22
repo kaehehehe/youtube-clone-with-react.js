@@ -135,17 +135,16 @@ const WatchVideo = ({ video }) => {
   const [likeCount, setLikeCount] = useState(null);
   const [viewCount, setviewCount] = useState(null);
 
-  const handleLikeCount = () => {
+  useEffect(() => {
     if (searched) {
       setLikeCount('LIKE');
     } else {
       const data = convertDataIntoNumberUsingUnits(video.statistics.likeCount);
       setLikeCount(data);
     }
-  };
+  }, [searched, video.statistics.likeCount]);
 
   useEffect(() => {
-    handleLikeCount();
     youtube
       .getChannelsData(video)
       .then((data) => {
@@ -154,7 +153,7 @@ const WatchVideo = ({ video }) => {
         setviewCount(data[0].statistics.viewCount);
       })
       .catch((error) => console.error('error', error));
-  }, []);
+  }, [video, youtube]);
 
   return (
     <Container>

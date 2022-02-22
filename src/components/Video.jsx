@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { convertDataIntoAgo } from '../logic/publishedAt';
-import { convertDataIntoDuration } from '../logic/duration';
-import { convertNumber } from '../logic/convertNumber';
+import { convertDataIntoAgo } from '../logic/convertDataIntoAgo';
+import { convertDataIntoMinutesAndSeconds } from '../logic/convertDataIntoMinutesAndSeconds';
+import { convertDataIntoNumberUsingUnits } from '../logic/convertDataIntoNumberUsingUnits';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { useWindowSize } from 'react-use';
 
@@ -112,7 +112,7 @@ const Video = ({ video, handleSelectedVideo }) => {
           ref={heightRef}
         />
         <Duration height={thumbnailHeight}>
-          {convertDataIntoDuration(video.contentDetails.duration)}
+          {convertDataIntoMinutesAndSeconds(video.contentDetails.duration)}
         </Duration>
       </ThumbnailWrapper>
       <Wrapper>
@@ -121,7 +121,9 @@ const Video = ({ video, handleSelectedVideo }) => {
           <p className="title">{video.snippet.title}</p>
           <p className="channel-name">{video.snippet.channelTitle}</p>
           <MetadataWrapper>
-            <span>{`${convertNumber(video.statistics.viewCount)} views`}</span>
+            <span>{`${convertDataIntoNumberUsingUnits(
+              video.statistics.viewCount
+            )} views`}</span>
             <VscDebugStackframeDot color="gray" />
             <span className="published-at">
               {convertDataIntoAgo(video.snippet.publishedAt)} ago

@@ -1,4 +1,4 @@
-export const convertDataIntoDuration = (data) => {
+export const convertDataIntoMinutesAndSeconds = (data) => {
   const str = data.replace(/[A-Z]/g, '');
   if (str.length === 4) {
     const min = str.slice(0, 2);

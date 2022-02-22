@@ -7,8 +7,8 @@ import { MdShare } from 'react-icons/md';
 import { MdFileDownload } from 'react-icons/md';
 import { MdBookmarkAdd } from 'react-icons/md';
 import { MdMoreHoriz } from 'react-icons/md';
-import { convertDate } from '../logic/publishedAt';
-import { convertNumber } from '../logic/convertNumber';
+import { convertDataIntoMonthDayYear } from '../logic/convertDataIntoMonthDayYear';
+import { convertDataIntoNumberUsingUnits } from '../logic/convertDataIntoNumberUsingUnits';
 import { GlobalContext } from '../App';
 import Comments from './CommentList';
 
@@ -141,7 +141,7 @@ const WatchVideo = ({ video }) => {
     if (searched) {
       setLikeCount('LIKE');
     } else {
-      const data = convertNumber(video.statistics.likeCount);
+      const data = convertDataIntoNumberUsingUnits(video.statistics.likeCount);
       setLikeCount(data);
     }
   };
@@ -174,7 +174,7 @@ const WatchVideo = ({ video }) => {
         <Metadata>
           <span>{`${Number(viewCount).toLocaleString()} views`}</span>
           <VscDebugStackframeDot color="gray" />
-          <span>{convertDate(video.snippet.publishedAt)}</span>
+          <span>{convertDataIntoMonthDayYear(video.snippet.publishedAt)}</span>
         </Metadata>
         <Buttons>
           <Button>
@@ -208,7 +208,7 @@ const WatchVideo = ({ video }) => {
             <ChannelIcon src={channel} alt="channel thumbnail" />
             <ChannelTitleWrapper>
               <ChannelTitle>{video.snippet.channelTitle}</ChannelTitle>
-              <Subscribers>{`${convertNumber(
+              <Subscribers>{`${convertDataIntoNumberUsingUnits(
                 subscriberCount
               )} subscribers`}</Subscribers>
             </ChannelTitleWrapper>

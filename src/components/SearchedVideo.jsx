@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { convertDataIntoAgo } from '../logic/publishedAt';
+import { convertDataIntoAgo } from '../logic/convertDataIntoAgo';
 
 const StyledVideo = styled.li`
   display: flex;

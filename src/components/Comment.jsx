@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { convertDataIntoAgo } from '../logic/publishedAt';
+import { convertDataIntoAgo } from '../logic/convertDataIntoAgo';
 import { MdThumbUpAlt } from 'react-icons/md';
 import { MdThumbDownAlt } from 'react-icons/md';
 

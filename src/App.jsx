@@ -45,6 +45,7 @@ const App = ({ youtube }) => {
       .then((data) => {
         setSearched(true);
         setVideos(data);
+        setSelectedVideo(null);
       })
       .catch((error) => console.error('error', error));
   };

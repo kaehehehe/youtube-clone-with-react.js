@@ -129,13 +129,11 @@ const VideoDescription = styled.p`
 `;
 
 const WatchVideo = ({ video }) => {
-  const { searched } = useContext(GlobalContext);
+  const { searched, youtube } = useContext(GlobalContext);
   const [channel, setChannel] = useState(null);
   const [subscriberCount, setSubscriberCount] = useState(null);
   const [likeCount, setLikeCount] = useState(null);
   const [viewCount, setviewCount] = useState(null);
-  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
   const handleLikeCount = () => {
     if (searched) {
@@ -148,16 +146,14 @@ const WatchVideo = ({ video }) => {
 
   useEffect(() => {
     handleLikeCount();
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setChannel(res.items[0].snippet.thumbnails.default.url);
-        setSubscriberCount(res.items[0].statistics.subscriberCount);
-        setviewCount(res.items[0].statistics.viewCount);
-      });
+    youtube
+      .getChannelsData(video)
+      .then((data) => {
+        setChannel(data[0].snippet.thumbnails.default.url);
+        setSubscriberCount(data[0].statistics.subscriberCount);
+        setviewCount(data[0].statistics.viewCount);
+      })
+      .catch((error) => console.error('error', error));
   }, []);
 
   return (

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import Comment from './Comment';
+import { GlobalContext } from '../App';
 
 const StyledCommentList = styled.ul`
   padding: 30px 10px;
@@ -8,19 +9,14 @@ const StyledCommentList = styled.ul`
 `;
 
 const Comments = ({ video }) => {
+  const { youtube } = useContext(GlobalContext);
   const [comments, setComments] = useState([]);
-  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
   useEffect(() => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${video.id}&maxResults=10&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setComments(res.items);
-      });
+    youtube
+      .getCommentsData(video)
+      .then((data) => setComments(data))
+      .catch((error) => console.error('error', error));
   }, []);
 
   return (

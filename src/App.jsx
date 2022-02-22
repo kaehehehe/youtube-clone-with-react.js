@@ -26,41 +26,25 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const App = () => {
+const App = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
   const [show, setShow] = useState(false);
   const [searched, setSearched] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
   useEffect(() => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=KR&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setVideos(res.items);
-      })
+    youtube
+      .getMostPopularVideos()
+      .then((data) => setVideos(data))
       .catch((error) => console.error('error', error));
   }, []);
 
   const searchVideos = (inputValue) => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${inputValue}&type=video&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) =>
-        res.items.map((item) => ({
-          ...item,
-          id: item.id.videoId,
-        }))
-      )
-      .then((items) => {
+    youtube
+      .getSearchVideos(inputValue)
+      .then((data) => {
         setSearched(true);
-        setVideos(items);
+        setVideos(data);
       })
       .catch((error) => console.error('error', error));
   };
@@ -70,7 +54,7 @@ const App = () => {
   };
 
   return (
-    <GlobalContext.Provider value={{ searched }}>
+    <GlobalContext.Provider value={{ searched, youtube }}>
       <Header setShow={setShow} searchVideos={searchVideos} />
       <SideNavbar selectedVideo={selectedVideo} />
       <DetailedSideNavbar show={show} setShow={setShow} />

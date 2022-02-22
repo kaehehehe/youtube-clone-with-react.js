@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { convertDataIntoAgo } from '../logic/convertDataIntoAgo';
 import { convertDataIntoMinutesAndSeconds } from '../logic/convertDataIntoMinutesAndSeconds';
 import { convertDataIntoNumberUsingUnits } from '../logic/convertDataIntoNumberUsingUnits';
 import { VscDebugStackframeDot } from 'react-icons/vsc';
 import { useWindowSize } from 'react-use';
+import { GlobalContext } from '../App';
 
 const StyledVideo = styled.li`
   transition: all 250ms ease-in;
@@ -80,9 +81,8 @@ const MetadataWrapper = styled.div`
 `;
 
 const Video = ({ video, handleSelectedVideo }) => {
+  const { youtube } = useContext(GlobalContext);
   const [channel, setChannel] = useState(null);
-  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const getRequestOptions = { method: 'GET', redirect: 'follow' };
   const heightRef = useRef(null);
   const { width, height } = useWindowSize();
   const [thumbnailHeight, setThumbnailHeight] = useState(null);
@@ -93,14 +93,10 @@ const Video = ({ video, handleSelectedVideo }) => {
   }, [[width, height]]);
 
   useEffect(() => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${video.snippet.channelId}&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setChannel(res.items[0].snippet.thumbnails.default.url);
-      });
+    youtube
+      .getChannelsData(video)
+      .then((data) => setChannel(data[0].snippet.thumbnails.default.url))
+      .catch((error) => console.error('error', error));
   }, []);
 
   return (

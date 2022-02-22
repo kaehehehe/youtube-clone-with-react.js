@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styled from 'styled-components';
 import { convertDataIntoAgo } from '../logic/convertDataIntoAgo';
+import { GlobalContext } from '../App';
 
 const StyledVideo = styled.li`
   display: flex;
@@ -69,19 +70,14 @@ const Description = styled.p`
 `;
 
 const SearchedVideo = ({ video, handleSelectedVideo }) => {
+  const { youtube } = useContext(GlobalContext);
   const [channel, setChannel] = useState(null);
-  const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const getRequestOptions = { method: 'GET', redirect: 'follow' };
 
   useEffect(() => {
-    fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${video.snippet.channelId}&key=${API_KEY}`,
-      getRequestOptions
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setChannel(res.items[0].snippet.thumbnails.default.url);
-      });
+    youtube
+      .getChannelsData(video)
+      .then((data) => setChannel(data[0].snippet.thumbnails.default.url))
+      .catch((error) => console.error('error', error));
   }, []);
 
   return (

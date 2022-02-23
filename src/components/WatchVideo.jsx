@@ -142,7 +142,7 @@ const WatchVideo = ({ video }) => {
       const data = convertDataIntoNumberUsingUnits(video.statistics.likeCount);
       setLikeCount(data);
     }
-  }, [searched, video.statistics.likeCount]);
+  }, [searched]);
 
   useEffect(() => {
     youtube

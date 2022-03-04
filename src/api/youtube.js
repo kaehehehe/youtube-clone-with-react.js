@@ -6,7 +6,7 @@ class Youtube {
 
   async getMostPopularVideos() {
     const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=KR&key=${this.key}`,
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=5&regionCode=KR&key=${this.key}`,
       this.getRequestOptions
     );
     const data = await response.json();
@@ -15,7 +15,7 @@ class Youtube {
 
   async getSearchVideos(inputValue) {
     const response = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${inputValue}&type=video&key=${this.key}`,
+      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${inputValue}&type=video&key=${this.key}`,
       this.getRequestOptions
     );
     const data = await response.json();

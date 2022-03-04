@@ -1,14 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-import styled from 'styled-components';
-import Comment from './Comment';
-import { GlobalContext } from '../App';
 
-const StyledCommentList = styled.ul`
-  padding: 30px 10px;
-  width: 100%;
-`;
+import Comment from '../Comment/Comment';
+import { GlobalContext } from '../../App';
+import * as S from './style';
 
-const Comments = ({ video }) => {
+const CommentList = ({ video }) => {
   const { youtube } = useContext(GlobalContext);
   const [comments, setComments] = useState([]);
 
@@ -20,12 +16,12 @@ const Comments = ({ video }) => {
   }, [video, youtube]);
 
   return (
-    <StyledCommentList>
+    <S.Comments>
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
-    </StyledCommentList>
+    </S.Comments>
   );
 };
 
-export default Comments;
+export default CommentList;
